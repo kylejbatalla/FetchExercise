@@ -11,7 +11,7 @@ interface Contract {
 
     interface View {
         fun showData(data: String)
-        fun showError(message: String)
+        fun showError()
     }
 
     interface Presenter {

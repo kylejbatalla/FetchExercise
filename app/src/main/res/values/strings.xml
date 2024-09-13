@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FetchExercise</string>
     <string name="loading_items">Loading items…</string>
+    <string name="failed_data_load">Failed to load data</string>
 </resources>

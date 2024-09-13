@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity(), Contract.View {
         setContentView(R.layout.main_activity)
 
         textViewItems = findViewById(R.id.textViewItems)
-        presenter = Presenter(this, Model())
+        presenter = Presenter(this)
 
         Log.d(TAG, "Loading data from model")
         presenter.loadData()
@@ -43,9 +43,8 @@ class MainActivity : ComponentActivity(), Contract.View {
      * Called by the Presenter to display an error message in the view.
      * This method sets the text of `textViewItems` to show the error message.
      *
-     * @param message The error message to be displayed in the TextView.
      */
-    override fun showError(message: String) {
-        textViewItems.text = message
+    override fun showError() {
+        textViewItems.text = getString(R.string.failed_data_load)
     }
 }

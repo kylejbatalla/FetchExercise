@@ -13,9 +13,10 @@ private const val TAG = "PresenterImpl"
  * Retrieves data from model and updates view.
  *
  * @property view View reference
- * @property model Model reference
  */
-class Presenter(private val view: Contract.View, private val model: Contract.Model) : Contract.Presenter {
+class Presenter(private val view: Contract.View) : Contract.Presenter {
+
+    private val model: Contract.Model = Model()
 
     /**
      * Communicates with model to load data and perform business logic. Updates the view
@@ -28,7 +29,7 @@ class Presenter(private val view: Contract.View, private val model: Contract.Mod
                 val sortedItems = model.sortAndFormatData(items)
                 view.showData(sortedItems)
             } catch (e: Exception) {
-                view.showError("Failed to load data")
+                view.showError()
                 Log.d(TAG, "Failed to load items: ${e.message}")
             }
         }

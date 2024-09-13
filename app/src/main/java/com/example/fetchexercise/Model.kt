@@ -27,10 +27,10 @@ class Model : Contract.Model {
      * @return A list of `JSONEntry` objects retrieved and parsed from the JSON response.
      * @throws Exception If the network request fails, the response is empty, or JSON parsing fails.
      */
+    @Throws(Exception::class)
     override suspend fun fetchItems(): List<JSONEntry> {
         return withContext(Dispatchers.IO) {
-            val url = "https://fetch-hiring.s3.amazonaws.com/hiring.json"
-
+            val url = Constants.BASE_URL
             val request = Request.Builder()
                 .url(url)
                 .build()
@@ -58,7 +58,7 @@ class Model : Contract.Model {
             .filter { it.name != null && it.name != "" }
             .sortedWith(compareBy<JSONEntry> { it.listId }.thenBy { it.name ?: "" })
             .joinToString(separator = "\n") {
-                "List ID: ${it.listId}, Name: ${it.name}, Id:${it.id}"
+                "List Id: ${it.listId}, Name: ${it.name}, Id:${it.id}"
             }
     }
 }
