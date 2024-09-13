@@ -8,7 +8,7 @@ and display a list objects from https://fetch-hiring.s3.amazonaws.com/hiring.jso
 The data is sorted and displayed the the user.
 
 ## Android Studio Installation
-* Clone the repo and open it in Android Studio: https://github.com/kylejbatalla/FetchExercise.git
+* Clone the repo and open the project in Android Studio: https://github.com/kylejbatalla/FetchExercise.git
 
 ### IDE Install
 * Build and install the application by creating and running a run/debug configuration in the IDE.
