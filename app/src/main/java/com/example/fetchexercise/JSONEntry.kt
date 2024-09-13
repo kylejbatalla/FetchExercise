@@ -7,7 +7,6 @@ package com.example.fetchexercise
  * @property listId
  * @property name
  */
-
 data class JSONEntry(
      val id: Int,
      val listId: String,
