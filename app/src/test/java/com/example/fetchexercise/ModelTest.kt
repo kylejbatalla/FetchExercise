@@ -1,6 +1,12 @@
 package com.example.fetchexercise
 
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -8,26 +14,30 @@ import org.mockito.Mockito.`when`
 
 class ModelTest {
 
-    private lateinit var model: Model
+    private lateinit var model: Contract.Model
+    private lateinit var testDispatcher: TestDispatcher
+    private lateinit var testScope: TestScope
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
-    fun setup() {
+    fun setUp() {
+        testDispatcher = StandardTestDispatcher()
+        testScope = TestScope(testDispatcher)
+        Dispatchers.setMain(testDispatcher)
         model = Model()
     }
 
     @Test
-    fun fetchItemsReturnsCorrectListSizeOnSuccessfulResponse() = runBlocking {
+    fun fetchItemsReturnsCorrectListSizeOnSuccessfulResponse() = testScope.runTest {
         val items = model.fetchItems()
         val itemsSize = 1000
         assertEquals(items.size, itemsSize)
     }
 
     @Test(expected = Exception::class)
-    fun fetchItemsThrowsExceptionOnURLError() {
+    fun fetchItemsThrowsExceptionOnURLError() = testScope.runTest {
         `when`(Constants.BASE_URL).thenReturn("http://fakeurl.com")
-        runBlocking {
-            model.fetchItems()
-        }
+        model.fetchItems()
     }
 
     @Test

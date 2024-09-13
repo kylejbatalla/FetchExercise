@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity(), Contract.View {
         setContentView(R.layout.main_activity)
 
         textViewItems = findViewById(R.id.textViewItems)
-        presenter = Presenter(this)
+
+        presenter = Presenter(this, Model())
 
         Log.d(TAG, "Loading data from model")
         presenter.loadData()

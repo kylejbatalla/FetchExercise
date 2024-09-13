@@ -1,6 +1,7 @@
 package com.example.fetchexercise
 
 import android.util.Log
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,16 +15,18 @@ private const val TAG = "PresenterImpl"
  *
  * @property view View reference
  */
-class Presenter(private val view: Contract.View) : Contract.Presenter {
-
-    private val model: Contract.Model = Model()
+class Presenter(
+    private val view: Contract.View,
+    private val model: Contract.Model,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
+) : Contract.Presenter {
 
     /**
      * Communicates with model to load data and perform business logic. Updates the view
      * based on data retrieved from the model.
      */
     override fun loadData() {
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(dispatcher).launch {
             try {
                 val items = model.fetchItems()
                 val sortedItems = model.sortAndFormatData(items)
