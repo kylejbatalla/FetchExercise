@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FetchExercise</string>
+    <string name="loading_items">Loading items…</string>
+</resources>
